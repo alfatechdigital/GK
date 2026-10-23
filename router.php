@@ -12,7 +12,7 @@ if ($requestPath === '/') {
     exit;
 }
 
-if ($requestPath === '/admin' || $requestPath === '/admin.php') {
+if ($requestPath === '/admin.php' || $requestPath === '/admin.php') {
     require __DIR__ . '/admin.php';
     exit;
 }
