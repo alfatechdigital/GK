@@ -653,7 +653,7 @@ $projects = loadProjects($database);
       <div class="section-heading">
       <p class="eyebrow">KELAS INFORMATIKA 001 MEMPERSEMBAHKAN</p>
       <h2 id="projects-title">GELAR KARYA<br><em>PROYEK KEPEMIMPINAN</em></h2>
-      <p>Tiga proyek kepemimpinan dari kelas Informatika 001 disajikan dalam tema Kalimantan Timur.</p>
+      <p>Tiga proyek kepemimpinan disajikan dalam tema Kalimantan Timur.</p>
     </div>
     <?php if ($projects === []): ?>
       <div class="empty-state">
