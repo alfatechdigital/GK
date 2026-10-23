@@ -401,16 +401,16 @@ $projects = loadProjects($database);
     </g>
 <g id="interludeTexts" text-anchor="middle" fill="#fff" font-weight="bold" stroke="#231f20" stroke-width="0.3px">
         <text id="interludeText1" x="375" y="240">
-            <tspan x="375">KREATIVITAS DAN IDE</tspan>
-            <tspan x="375" dy="24">TUMBUH MENJADI KARYA</tspan>
+            <tspan x="375">MENJAGA WARISAN</tspan>
+            <tspan x="375" dy="24">SAMBUT MASA DEPAN</tspan>
         </text>
         <text id="interludeText2" x="375" y="240">
-            <tspan x="375">BERSAMA MENJAGA WARISAN</tspan>
-            <tspan x="375" dy="24">MENYAMBUT MASA DEPAN</tspan>
+            <tspan x="375">KREATIVITAS BERSAMA</tspan>
+            <tspan x="375" dy="24">TUMBUH MENJADI KARYA</tspan>
         </text>
         <text id="interludeText3" x="375" y="240">
-            <tspan x="375">PERSEMBAHAN DARI</tspan>
-            <tspan x="375" dy="24">KELAS INFORMATIKA 001</tspan>
+            <tspan x="375">MEMBAWA HARAPAN</tspan>
+            <tspan x="375" dy="24">TANAH KALIMANTAN</tspan>
         </text>
     </g>
 </svg>
@@ -426,7 +426,7 @@ $projects = loadProjects($database);
   <section class="project-stack" id="proyek" aria-labelledby="projects-title">
     <div class="section-heading">
       <p class="eyebrow">01 — 03 · PROYEK KELAS</p>
-      <h2 id="projects-title">Ide yang tumbuh,<br><em>karya yang berdampak.</em></h2>
+      <h2 id="projects-title">PERESMBAHAN DARI<br><em>KELAS INFORMATIKA 001</em></h2>
       <p>Tiga proyek dari kelas Informatika 1 dengan inspirasi Kalimantan Timur.</p>
     </div>
     <?php if ($projects === []): ?>
@@ -651,9 +651,9 @@ $projects = loadProjects($database);
     <canvas id="canvas" aria-hidden="true"></canvas>
     <div class="fire-content">
       <div class="section-heading">
-      <p class="eyebrow">01 — 03 · PROYEK KELAS</p>
-      <h2 id="projects-title">Ide yang tumbuh,<br><em>karya yang berdampak.</em></h2>
-      <p>Tiga proyek dari kelas Informatika 1 dengan inspirasi Kalimantan Timur.</p>
+      <p class="eyebrow">KELAS INFORMATIKA 001 MEMPERSEMBAHKAN</p>
+      <h2 id="projects-title">GELAR KARYA<br><em>PROYEK KEPEMIMPINAN</em></h2>
+      <p>Tiga proyek kepemimpinan dari kelas Informatika 001 disajikan dalam tema Kalimantan Timur.</p>
     </div>
     <?php if ($projects === []): ?>
       <div class="empty-state">

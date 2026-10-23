@@ -2,8 +2,77 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
-requireLocalAdmin();
 startAdminSession();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login') {
+    try {
+        verifyCsrfToken($_POST['csrf_token'] ?? null);
+        if (!adminPasswordConfigured()) {
+            $_SESSION['login_error'] = 'Password admin belum dikonfigurasi di environment server (GK_ADMIN_PASSWORD).';
+        } elseif (adminLoginBlocked()) {
+            $_SESSION['login_error'] = 'Terlalu banyak percobaan. Coba lagi dalam lima menit.';
+        } elseif (authenticateAdmin($_POST['password'] ?? null)) {
+            redirectToAdmin();
+        } else {
+            $_SESSION['login_error'] = 'Password tidak sesuai.';
+        }
+    } catch (DomainException $error) {
+        $_SESSION['login_error'] = $error->getMessage();
+    }
+    redirectToAdmin();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'logout'
+    && isAdminAuthenticated()) {
+    verifyCsrfToken($_POST['csrf_token'] ?? null);
+    logoutAdmin();
+    redirectToAdmin();
+}
+
+if (!isAdminAuthenticated()) {
+    $loginError = $_SESSION['login_error'] ?? null;
+    unset($_SESSION['login_error']);
+    ?>
+    <!doctype html>
+    <html lang="id">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="theme-color" content="#0d2a20">
+      <title>Login Admin | Gelar Karya Informatika 1</title>
+      <link rel="stylesheet" href="/admin.css">
+    </head>
+    <body>
+      <header class="admin-header">
+        <a class="admin-brand" href="/"><span class="brand-mark">GK</span><span><strong>Admin Gelar Karya</strong><small>INFORMATIKA 1 · UM</small></span></a>
+        <a class="back-link" href="/">← Lihat halaman utama</a>
+      </header>
+      <main class="admin-main login-main">
+        <section class="admin-intro">
+          <p class="eyebrow">PANEL PENGELOLAAN</p>
+          <h1>Masuk ke <em>admin.</em></h1>
+          <p>Masukkan password untuk mengelola konten kelas.</p>
+        </section>
+        <?php if (is_string($loginError) && $loginError !== ''): ?>
+          <div class="flash flash-error" role="alert"><?= h($loginError) ?></div>
+        <?php endif; ?>
+        <section class="form-panel login-panel" aria-labelledby="login-title">
+          <div class="panel-heading"><span class="panel-number">GK</span><div><h2 id="login-title">Login admin</h2><p>Sesi akan disimpan dengan cookie yang aman.</p></div></div>
+          <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
+            <input type="hidden" name="action" value="login">
+            <label for="admin-password">Password</label>
+            <input id="admin-password" name="password" type="password" autocomplete="current-password" required autofocus>
+            <button class="primary-button" type="submit">Masuk <span aria-hidden="true">↗</span></button>
+          </form>
+        </section>
+      </main>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+
 $database = appDatabase();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -244,14 +313,21 @@ $flash = takeFlash();
 <body>
   <header class="admin-header">
     <a class="admin-brand" href="/"><span class="brand-mark">GK</span><span><strong>Admin Gelar Karya</strong><small>INFORMATIKA 1 · UM</small></span></a>
-    <a class="back-link" href="/">← Lihat halaman utama</a>
+    <div class="admin-header-actions">
+      <a class="back-link" href="/">← Lihat halaman utama</a>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
+        <input type="hidden" name="action" value="logout">
+        <button class="logout-button" type="submit">Keluar</button>
+      </form>
+    </div>
   </header>
   <main class="admin-main">
     <section class="admin-intro">
-      <p class="eyebrow">PANEL PENGELOLAAN LOKAL</p>
+      <p class="eyebrow">PANEL PENGELOLAAN</p>
       <h1>Kelola <em>konten kelas.</em></h1>
-      <p>Proyek, foto, dan anggota tiap proyek tersimpan di SQLite pada komputer ini.</p>
-      <div class="local-notice"><strong>Admin lokal tanpa login.</strong> Server harus dijalankan pada <code>127.0.0.1</code>; jangan membuka panel ini ke jaringan publik.</div>
+      <p>Proyek, foto, dan anggota tiap proyek tersimpan di database aplikasi.</p>
+      <div class="local-notice"><strong>Akses admin terlindungi.</strong> Pastikan situs menggunakan HTTPS saat dipublikasikan.</div>
     </section>
 
     <?php if ($flash !== null): ?>

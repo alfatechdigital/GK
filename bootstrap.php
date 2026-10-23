@@ -519,13 +519,53 @@ function startAdminSession(): void
     session_start();
 }
 
-function requireLocalAdmin(): void
+function isAdminAuthenticated(): bool
 {
-    $remoteAddress = $_SERVER['REMOTE_ADDR'] ?? '';
-    if (!in_array($remoteAddress, ['127.0.0.1', '::1'], true)) {
-        http_response_code(403);
-        exit('Halaman admin hanya tersedia dari komputer yang menjalankan server lokal.');
+    return ($_SESSION['admin_authenticated'] ?? false) === true;
+}
+
+function adminPasswordConfigured(): bool
+{
+    $password = getenv('GK_ADMIN_PASSWORD');
+    return is_string($password) && $password !== '';
+}
+
+function adminLoginBlocked(): bool
+{
+    return (int) ($_SESSION['admin_login_blocked_until'] ?? 0) > time();
+}
+
+function authenticateAdmin(mixed $password): bool
+{
+    $configuredPassword = getenv('GK_ADMIN_PASSWORD');
+    if (!is_string($configuredPassword) || $configuredPassword === '' || !is_string($password)) {
+        return false;
     }
+    if (adminLoginBlocked()) {
+        return false;
+    }
+
+    if (hash_equals($configuredPassword, $password)) {
+        session_regenerate_id(true);
+        $_SESSION['admin_authenticated'] = true;
+        unset($_SESSION['admin_login_attempts'], $_SESSION['admin_login_blocked_until'], $_SESSION['csrf_token']);
+        return true;
+    }
+
+    $attempts = (int) ($_SESSION['admin_login_attempts'] ?? 0) + 1;
+    if ($attempts >= 5) {
+        $_SESSION['admin_login_attempts'] = 0;
+        $_SESSION['admin_login_blocked_until'] = time() + 300;
+    } else {
+        $_SESSION['admin_login_attempts'] = $attempts;
+    }
+    return false;
+}
+
+function logoutAdmin(): void
+{
+    $_SESSION = [];
+    session_regenerate_id(true);
 }
 
 function csrfToken(): string

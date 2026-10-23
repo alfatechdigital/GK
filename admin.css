@@ -55,8 +55,15 @@ a { color: inherit; }
 .admin-brand small { margin-top: 3px; color: #c6c9bf; font-size: 10px; letter-spacing: .12em; }
 .back-link { color: #e2c98f; font-size: 13px; text-decoration: none; }
 .back-link:hover, .admin-footer > a:last-child:hover { text-decoration: underline; }
+.admin-header-actions { display: flex; align-items: center; gap: 20px; }
+.admin-header-actions form { margin: 0; }
+.logout-button { padding: 8px 12px; border: 1px solid #77877b; background: transparent; color: #f5f0e5; font: 600 12px 'DM Sans', Arial, sans-serif; cursor: pointer; }
+.logout-button:hover { background: #214936; }
 
 .admin-main { width: min(1180px, calc(100% - 48px)); margin: 72px auto 96px; }
+.login-main { width: min(560px, calc(100% - 48px)); }
+.login-panel { margin-top: 30px; }
+.login-panel form { margin-top: 25px; }
 .admin-intro { margin-bottom: 36px; }
 .eyebrow { margin: 0 0 17px; color: #777d71; font-size: 11px; font-weight: 700; letter-spacing: .2em; }
 .admin-intro h1 { margin: 0; font: 600 clamp(38px, 5vw, 56px)/1.1 'Playfair Display', Georgia, serif; letter-spacing: -.04em; }
@@ -80,7 +87,7 @@ a { color: inherit; }
 .form-panel form { margin-top: 25px; }
 label { display: block; margin: 18px 0 7px; font-size: 12px; font-weight: 700; }
 .field-hint { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 400; }
-input[type="text"], input[type="url"], input[type="file"], textarea {
+input[type="text"], input[type="url"], input[type="password"], input[type="file"], textarea {
   width: 100%;
   min-height: 46px;
   padding: 12px 13px;
@@ -153,6 +160,7 @@ input[type="file"]::file-selector-button { margin-right: 12px; padding: 7px 10px
 
 @media (max-width: 520px) {
   .admin-header { padding: 12px 18px; }
+  .admin-header-actions { gap: 10px; }
   .back-link { max-width: 120px; text-align: right; font-size: 11px; }
   .admin-main { width: min(100% - 32px, 480px); margin: 42px auto 64px; }
   .admin-forms { gap: 14px; margin-top: 32px; }
