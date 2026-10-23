@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
     try {
         verifyCsrfToken($_POST['csrf_token'] ?? null);
         if (!adminPasswordConfigured()) {
-            $_SESSION['login_error'] = 'Password admin belum dikonfigurasi di environment server (GK_ADMIN_PASSWORD).';
+            $_SESSION['login_error'] = 'Password admin belum dikonfigurasi di bootstrap.php.';
         } elseif (adminLoginBlocked()) {
             $_SESSION['login_error'] = 'Terlalu banyak percobaan. Coba lagi dalam lima menit.';
         } elseif (authenticateAdmin($_POST['password'] ?? null)) {
@@ -362,7 +362,7 @@ $flash = takeFlash();
     </div>
 
     <section class="saved-content" aria-labelledby="saved-content-title">
-      <div class="panel-heading"><span class="panel-number">02</span><div><h2 id="saved-content-title">Konten tersimpan</h2><p>Ubah detail, foto, dan anggota proyek kapan saja.</p></div><a class="refresh-link" href="/admin">Muat ulang ↻</a></div>
+      <div class="panel-heading"><span class="panel-number">02</span><div><h2 id="saved-content-title">Konten tersimpan</h2><p>Ubah detail, foto, dan anggota proyek kapan saja.</p></div><a class="refresh-link" href="/admin.php">Muat ulang ↻</a></div>
       <div class="saved-grid">
         <section class="saved-list" aria-labelledby="saved-projects-title">
           <h3 id="saved-projects-title">Proyek <span><?= h((string) count($projects)) ?>/<?= GK_MAX_PROJECTS ?></span></h3>

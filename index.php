@@ -22,12 +22,12 @@ $projects = loadProjects($database);
       <span class="brand-mark">GK</span>
       <span><strong>Gelar Karya</strong><small>Informatika 1 · UM</small></span>
     </a>
-    <!-- <nav class="site-nav" aria-label="Navigasi utama">
-      <a href="#beranda">Beranda</a>
+    <nav class="site-nav" aria-label="Navigasi utama">
+      <a href="/">Beranda</a>
       <a href="#proyek">Proyek</a>
-      <a href="#anggota">Anggota</a>
-      <a class="nav-admin" href="/admin">Admin ↗</a>
-    </nav> -->
+      <!-- <a href="#anggota">Anggota</a> -->
+      <a class="nav-admin" href="/admin.php">Admin ↗</a>
+    </nav>
   </header>
     <svg class="parallax" viewBox="0 0 750 500" preserveAspectRatio="xMidYMax slice">
     <defs>
@@ -434,7 +434,7 @@ $projects = loadProjects($database);
         <span class="empty-number">01 / 03</span>
         <h3>Ruang untuk karya pertama.</h3>
         <p>Konten proyek belum ditambahkan. Kelola judul, cerita, dan foto melalui halaman admin.</p>
-        <a href="/admin">Buka halaman admin ↗</a>
+        <a href="/admin.php">Buka halaman admin ↗</a>
       </div>
     <?php else: ?>
       <div class="project-list">

@@ -6,6 +6,7 @@ const GK_MAX_PHOTOS = 6;
 const GK_MAX_PHOTO_BYTES = 8 * 1024 * 1024;
 const GK_MAX_MEMBERS = 12;
 const GK_MAX_MEMBER_PHOTO_BYTES = 8 * 1024 * 1024;
+const GK_ADMIN_PASSWORD = '2531537';
 
 function appDatabase(): PDO
 {
@@ -526,8 +527,7 @@ function isAdminAuthenticated(): bool
 
 function adminPasswordConfigured(): bool
 {
-    $password = getenv('GK_ADMIN_PASSWORD');
-    return is_string($password) && $password !== '';
+    return GK_ADMIN_PASSWORD !== '';
 }
 
 function adminLoginBlocked(): bool
@@ -537,15 +537,14 @@ function adminLoginBlocked(): bool
 
 function authenticateAdmin(mixed $password): bool
 {
-    $configuredPassword = getenv('GK_ADMIN_PASSWORD');
-    if (!is_string($configuredPassword) || $configuredPassword === '' || !is_string($password)) {
+    if (!is_string($password)) {
         return false;
     }
     if (adminLoginBlocked()) {
         return false;
     }
 
-    if (hash_equals($configuredPassword, $password)) {
+    if (hash_equals(GK_ADMIN_PASSWORD, $password)) {
         session_regenerate_id(true);
         $_SESSION['admin_authenticated'] = true;
         unset($_SESSION['admin_login_attempts'], $_SESSION['admin_login_blocked_until'], $_SESSION['csrf_token']);

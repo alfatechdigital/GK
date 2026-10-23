@@ -12,7 +12,7 @@ Di PowerShell, dari folder proyek:
 .\start-server.ps1
 ```
 
-Buka `http://127.0.0.1:8765/` untuk situs dan `http://127.0.0.1:8765/admin` untuk mengelola konten. Server pengembangan hanya terikat ke komputer lokal. Untuk mengakses situs melalui internet, deploy aplikasi pada hosting yang mendukung PHP dan atur environment variable `GK_ADMIN_PASSWORD` di konfigurasi server ke password admin yang diinginkan. Jangan menaruh password di file publik atau membuka server pengembangan langsung ke internet; gunakan HTTPS.
+Buka `http://127.0.0.1:8765/` untuk situs dan `http://127.0.0.1:8765/admin` untuk mengelola konten. Password admin ditetapkan sebagai konstanta `GK_ADMIN_PASSWORD` di `bootstrap.php`. Server pengembangan hanya terikat ke komputer lokal. Untuk mengakses situs melalui internet, deploy aplikasi pada hosting yang mendukung PHP dan gunakan HTTPS. Password yang disimpan di kode berisiko ikut terekspos jika kode dibagikan atau dipublikasikan.
 
 Database SQLite dibuat otomatis di `storage/gelar-karya.sqlite3`. Foto proyek dan foto anggota disimpan di `uploads/projects/` dan `uploads/members/`. Lokasi tersebut tidak perlu dibuat manual dan isinya tidak dimasukkan ke Git.
 
