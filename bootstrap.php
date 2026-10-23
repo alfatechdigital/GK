@@ -598,6 +598,6 @@ function takeFlash(): ?array
 
 function redirectToAdmin(): never
 {
-    header('Location: /admin', true, 303);
+    header('Location: /admin.php', true, 303);
     exit;
 }
