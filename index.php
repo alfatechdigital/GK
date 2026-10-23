@@ -182,7 +182,7 @@ $projects = loadProjects($database);
         <rect id="bg2" y="-59.8" width="750" height="612.4" transform="translate(750 492.8) rotate(180)" fill="url(#bg2-grad)" />
 
         <g id="fstar">
-            <image width="707" height="429" transform="translate(728.46 16.5) scale(0.24)" xlink:href="https://i.ibb.co/TWfhqRG/fstar.png" />
+            <!-- <image width="707" height="429" transform="translate(728.46 16.5) scale(0.24)" xlink:href="https://i.ibb.co/TWfhqRG/fstar.png" /> -->
             <circle cx="768.6" cy="78.72" r="39.39" transform="translate(64.22 396.2) rotate(-30.11)" fill="url(#fstar-grad)" style="mix-blend-mode: overlay" />
         </g>
 
@@ -660,7 +660,7 @@ $projects = loadProjects($database);
         <span class="empty-number">01 / 03</span>
         <h3>Ruang untuk karya pertama.</h3>
         <p>Konten proyek belum ditambahkan. Kelola judul, cerita, dan foto melalui halaman admin.</p>
-        <a href="/admin">Buka halaman admin ↗</a>
+        <a href="/admin.php">Buka halaman admin ↗</a>
       </div>
     <?php else: ?>
       <div class="project-list">
