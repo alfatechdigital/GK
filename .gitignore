@@ -1,0 +1,4 @@
+/storage/*
+!/storage/.htaccess
+/uploads/projects/*
+!/uploads/.htaccess
